@@ -1,30 +1,41 @@
-# Grommet static project
+# Fitness-By-You
 
-This project has the structure needed to generate static sites that
-can be deployed to github pages, for example.
+This is a sample Grommet application for reference.
 
 To run this application, execute the following commands:
 
   1. Install NPM modules
 
     ```
-    $ npm install
+    $ npm install (or yarn install)
     ```
 
-  2. Start the development server:
+  2. Start the back-end server:
 
     ```
-    $ gulp dev
+    $ npm run dev-server
     ```
 
-  3. Create the app distribution to be used by the back-end server
+  3. Start the front-end dev server:
 
     ```
-    $ gulp dist
+    $ npm run dev
     ```
 
-  4. Create the app distribution as static html files
+  4. Create the app distribution to be used by a back-end server
 
     ```
-    $ gulp dist --config static-webpack.config.babel.js
+    $ NODE_ENV=production grommet pack
+    ```
+
+  5. Start the server in production mode:
+
+    ```
+    $ npm start
+    ```
+
+  6. Test and run linters:
+
+    ```
+    $ npm test
     ```

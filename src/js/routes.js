@@ -1,12 +1,21 @@
-import Main from './Main';
-import Dashboard from './components/Dashboard';
-import Page1 from './components/Page1';
+import Login from './screens/Login';
+import Workouts from './screens/Workouts';
+import Main from './components/Main';
+import Dashboard from './screens/Dashboard';
+import Tasks from './screens/Tasks';
+import Task from './screens/Task';
+import NotFound from './screens/NotFound';
 
 export default {
   path: '/',
   component: Main,
-  indexRoute: { component: Dashboard },
   childRoutes: [
-    { path: 'page1', component: Page1 }
-  ]
+    { path: 'login', component: Login },
+    { path: 'dashboard', component: Dashboard },
+    { path: 'tasks/:id', component: Task },
+    { path: 'tasks', component: Tasks },
+    { path: 'workouts', component: Workouts },
+    { path: '*', component: NotFound }
+  ],
+  indexRoute: { component: Dashboard }
 };

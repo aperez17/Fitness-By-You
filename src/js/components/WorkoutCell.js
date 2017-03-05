@@ -15,20 +15,20 @@ export default class WorkoutCell extends Component {
     this.setState({
       shouldShowImage: !this.state.shouldShowImage
     });
-    console.log(this.state.shouldShowImage);
   }
 
   render () {
+    const { workout, animationSpeed } = this.props;
     return (
       <WorkoutCellView
-        maxTime={this.props.maxWorkoutTime}
+        maxTime={workout.maxWorkoutTime}
         shouldShowImage={this.state.shouldShowImage}
         onClickImageFn={this.onClickImageFn}
-        title={this.props.title}
-        image={this.props.image}
-        steps={this.props.steps}
-        time={this.props.time}
-        animationSpeed={this.props.animationSpeed}/>
+        title={workout.title}
+        image={workout.image}
+        steps={workout.steps}
+        time={workout.time}
+        animationSpeed={animationSpeed}/>
     );
   }
 };
