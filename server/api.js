@@ -1,5 +1,5 @@
 import express from 'express';
-import { addSession, getTasks, getTask, getWorkouts, getWorkout } from './data';
+import { addSession, getTasks, getTask } from './data';
 
 const router = express.Router();
 
@@ -19,26 +19,12 @@ router.post('/sessions', (req, res) => {
 });
 
 router.get('/task', (req, res) => {
-  getTasks(req.query).then(tasks =>  res.json(tasks));
-});
-
-router.get('/workout', (req, res) => {
-  getWorkouts(req.query).then(workouts => { console.log(workouts); res.json(workouts) });
+  getTasks(req.query).then(tasks => res.json(tasks));
 });
 
 router.get('/task/:id', (req, res) => {
   getTask(req.params.id).then((result) => {
     if (!result.task) {
-      res.status(404).end();
-    } else {
-      res.json(result);
-    }
-  });
-});
-
-router.get('/workout/:id', (req, res) => {
-  getWorkout(req.params.id).then((result) => {
-    if (!result.workout) {
       res.status(404).end();
     } else {
       res.json(result);

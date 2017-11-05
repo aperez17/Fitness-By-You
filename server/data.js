@@ -1,7 +1,6 @@
 const _sessions = {};
 const _notifiers = {
-  task: [],
-  workout: []
+  task: []
 };
 
 export const tasks = [
@@ -28,35 +27,6 @@ export const tasks = [
     name: 'Removing instance',
     percentComplete: 0,
     status: 'Waiting'
-  }
-];
-
-export const workouts = [
-  {
-    "id": 'workout-1',
-    "name": 'Workout 1',
-    "image": "https://cdn.muscleandstrength.com/sites/all/themes/mnsnew/images/taxonomy/workouts/strength.jpg",
-    "steps": [
-      '30 Deadlifts',
-      '25 Squats',
-      '30 Pushups',
-      '25 Squat Jumps',
-      '30 Tricep Dips'
-    ],
-    "time": 30
-  },
-  {
-    id: 'workout-2',
-    name: 'Workout 2',
-    image: 'http://images.shape.mdpcdn.com/sites/shape.com/files/1200-grokker-hiit-workout.jpg',
-    steps : [
-      '10 Curls',
-      '20 Skull Crushers',
-      '10 Squats',
-      '30 Deadlifts',
-      '15 Pullups'
-    ],
-    time: 45
   }
 ];
 
@@ -121,17 +91,6 @@ export function getTasks(filters) {
   return Promise.resolve({ tasks });
 }
 
-export function getWorkouts(filters) {
-  if (filters) {
-    return Promise.resolve({
-      workouts: workouts.filter(workout =>
-        Object.keys(filters).some(filter => workout[filter] === filters[filter])
-      )
-    });
-  }
-  return Promise.resolve({ workouts });
-}
-
 export function getTask(id) {
   let task;
   tasks.some((t) => {
@@ -144,16 +103,4 @@ export function getTask(id) {
   return Promise.resolve({ task });
 }
 
-export function getWorkout(id) {
-  let workout;
-  workouts.some((w) => {
-    if (w.id === id) {
-      workout = w;
-      return true;
-    }
-    return false;
-  });
-  return Promise.resolve({ workout });
-}
-
-export default { addNotifier, addSession, getSession, getTask, getTasks, getWorkouts, getWorkout };
+export default { addNotifier, addSession, getSession, getTask, getTasks };

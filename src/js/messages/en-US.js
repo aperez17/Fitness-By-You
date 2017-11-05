@@ -1,4 +1,3 @@
 module.exports = {
-  Tasks: 'Tasks',
-  Workouts: 'Wokrouts'
+  Tasks: 'Tasks'
 };

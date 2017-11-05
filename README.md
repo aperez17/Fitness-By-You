@@ -1,4 +1,4 @@
-# Fitness-By-You
+# foo
 
 This is a sample Grommet application for reference.
 

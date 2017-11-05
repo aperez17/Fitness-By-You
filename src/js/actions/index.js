@@ -15,12 +15,6 @@ export const TASKS_UNLOAD = 'TASKS_UNLOAD';
 export const TASK_LOAD = 'TASK_LOAD';
 export const TASK_UNLOAD = 'TASK_UNLOAD';
 
-// Workouts
-export const WORKOUTS_LOAD = 'WORKOUTS_LOAD';
-export const WORKOUTS_UNLOAD = 'WORKOUTS_UNLOAD';
-export const WORKOUT_LOAD = 'WORKOUT_LOAD';
-export const WORKOUT_UNLOAD ='WORKOUT_UNLOAD';
-
 // Nav
 export const NAV_ACTIVATE = 'NAV_ACTIVATE';
 export const NAV_ENABLE = 'NAV_ENABLE';

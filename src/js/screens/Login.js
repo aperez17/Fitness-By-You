@@ -56,7 +56,7 @@ class Login extends Component {
           <span />
           <LoginForm align='start'
             logo={<Logo className='logo' colorIndex='brand' />}
-            title='Fitness By You'
+            title='Foo'
             onSubmit={this._onSubmit} errors={[error]} usernameType='text' />
           <Footer direction='row' size='small'
             pad={{ horizontal: 'medium', vertical: 'small' }}>

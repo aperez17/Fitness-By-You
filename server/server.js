@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import api from './api';
-import { addNotifier, getTasks, getTask, getWorkouts, getWorkout } from './data';
+import { addNotifier, getTasks, getTask } from './data';
 import Notifier from './notifier';
 
 const PORT = process.env.PORT || 8102;
@@ -27,33 +27,10 @@ addNotifier(
   }
 );
 
-addNotifier(
-  'workout',
-  (workout) => {
-    // this can be invoked multiple times as new requests happen
-    notifier.test((request) => {
-      // we should skip notify if the id of the task does not match the payload
-      if (request.path === '/api/workout/:id' && request.params.id !== workout.id) {
-        return false;
-      }
-      return true;
-    });
-  }
-);
-
 notifier.use('/api/task', () => getTasks());
-notifier.use('/api/workout', () => getWorkouts());
 notifier.use('/api/task/:id', param => (
   getTask(param.id).then((result) => {
     if (!result.task) {
-      return Promise.reject({ statusCode: 404, message: 'Not Found' });
-    }
-    return Promise.resolve(result);
-  })
-));
-notifier.use('/api/workout/:id', param => (
-  getWorkout(param.id).then((result) => {
-    if (!result.workout) {
       return Promise.reject({ statusCode: 404, message: 'Not Found' });
     }
     return Promise.resolve(result);

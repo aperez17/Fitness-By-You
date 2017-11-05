@@ -1,14 +1,14 @@
 import { browserHistory as history } from 'react-router';
 import { SESSION_LOAD, SESSION_LOGIN, SESSION_LOGOUT } from '../actions';
-import { deleteSession, postSession } from '../api/session';
+import { deleteSession, postLogin } from '../api/session';
 import { updateHeaders } from '../api/utils';
 
 const localStorage = window.localStorage;
 
 export function initialize() {
   return (dispatch) => {
-    const { email, name, token } = localStorage;
-    if (email && token) {
+    const { email, name } = localStorage;
+    if (email && name) {
       dispatch({
         type: SESSION_LOAD, payload: { email, name, token }
       });
@@ -18,43 +18,45 @@ export function initialize() {
   };
 }
 
+
 export function login(email, password, targetPath) {
-  return dispatch => (
-    postSession(email, password)
-      .then((payload) => {
-        updateHeaders({ Auth: payload.token });
-        dispatch({ type: SESSION_LOGIN, payload });
+  return dispatch => {
+    const handlers = {
+      success: function(payload) {
+        dispatch({ type: SESSION_LOGIN, payload});
         try {
           localStorage.email = payload.email;
           localStorage.name = payload.name;
-          localStorage.token = payload.token;
-        } catch (e) {
+        } catch(e) {
           alert(
             'Unable to preserve session, probably due to being in private ' +
             'browsing mode.'
           );
         }
         history.push(targetPath);
-      })
-      .catch(payload => dispatch({
-        type: SESSION_LOGIN,
-        error: true,
-        payload: {
-          statusCode: payload.status, message: payload.statusText
-        }
-      }))
-  );
+      },
+      error: function(payload) {
+        dispatch({
+          type: SESSION_LOGIN,
+          error: true,
+          payload: {
+            statusCode: payload.status, message: payload.statusText
+          }
+        });
+      }
+    }
+    postLogin(email, password, handlers)
+  };
 }
 
 export function logout(session) {
   return (dispatch) => {
     dispatch({ type: SESSION_LOGOUT });
-    deleteSession(session);
+    deleteSession();
     updateHeaders({ Auth: undefined });
     try {
       localStorage.removeItem('email');
       localStorage.removeItem('name');
-      localStorage.removeItem('token');
     } catch (e) {
       // ignore
     }
